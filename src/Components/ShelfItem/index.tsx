@@ -13,7 +13,7 @@ const ProductsShelf = [
         "id": 2,
         "productName": "Apple Macbook Air (13 polegadas, 2020, Chip M1, 256 GB de SSD, 8 GB de RAM) - Prateado",
         "oldPrice": "9.923,00",
-        "currentPrice": "6.599,00",
+        "currentPrice": "6.598,00",
         "imageURL": "src/assets/product.png"
     }
 ]
