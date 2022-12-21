@@ -6,17 +6,19 @@ const ProductsShelf = [
         "id": 1,
         "productName": "Monitor LED 27'' Gamer Curvo Samsung  1920 x 1080 FHD 240 Hz HDMI, DP, Gsync Série CRG50",
         "oldPrice": "2.923,00",
-        "currentPrice": "2.599,00",
+        "currentPrice": 2599,
         "imageURL": "/assets/product.png"
     },
     {
         "id": 2,
         "productName": "Apple Macbook Air (13 polegadas, 2020, Chip M1, 256 GB de SSD, 8 GB de RAM) - Prateado",
         "oldPrice": "9.923,00",
-        "currentPrice": "6.598,00",
+        "currentPrice": 6598,
         "imageURL": "/assets/product.png"
     }
 ]
+
+const priceConfig = {style: 'currency', currency: 'BRL'};
 
 
 const ShelfItem = () => {
@@ -56,7 +58,7 @@ const ShelfItem = () => {
     }
 
     
-
+    
 
     return(
         <div className="container">
@@ -66,6 +68,10 @@ const ShelfItem = () => {
 
                 
 
+                const priceMethods = product.currentPrice / 10;
+
+                console.log(product.currentPrice)
+
                 return(
                     <div className="shelfItem" key={product.id}>
                         <button className={`btnFavorites ${isFavorite ? 'active' : ''}`} onClick={() => handleAddFav(product.id)}></button>
@@ -73,11 +79,12 @@ const ShelfItem = () => {
                         <div className="shelfItem__boxProduct">
                             <p className="shelfItem__name">{product.productName}</p>
                             <p className="shelfItem__oldPrice">R$ {product.oldPrice}</p>
-                            <p className="shelfItem__currentPrice">R$ {product.currentPrice}</p>
-                            <p className="shelfItem__priceMethods">em até <b>10x de R$ 259,90</b> sem juros</p>
+                            <p className="shelfItem__currentPrice">{product.currentPrice.toLocaleString('pt-br', priceConfig)}</p>
+                            <p className="shelfItem__priceMethods">em até <b>10x de {priceMethods.toLocaleString('pt-br', priceConfig)}</b> sem juros</p>
                         </div>
                         <button className={`btn ${isInCart ? 'active' : ''}`} onClick={() => handleAdd(product.id)}>{isInCart ? 'adicionado' : 'adicionar'}</button>
                     </div>
+                    
                 )
                 
             } ) : "Não há produtos"}
