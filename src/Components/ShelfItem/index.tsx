@@ -18,44 +18,65 @@ const ProductsShelf = [
     }
 ]
 
-console.log(ProductsShelf);
 
 const ShelfItem = () => {
 
-    const [txtButton, setTxtButton] = useState(true)
-    const [favorites, setFavorites] = useState(false)
-    const [favoritesProducts, setFavoritesProducts] = useState([])
+    const [favoritesProducts, setFavoritesProducts] = useState<number[]>([])
+    const [cartProducts, setCartProducts] = useState<number[]>([])
+
+    const handleAdd = (id: number) => {
+        if (cartProducts.includes(id)) {
+
+            
+            const currentCart = [...cartProducts]
+            const cartWithoutId = currentCart.filter(currentId => id !== currentId)
+            
+
+            
+            setCartProducts(cartWithoutId);
+        } else {
+            setCartProducts([...cartProducts, id])
+        }
+    }
+
+
+    const handleAddFav = (id: number) => {
+
+        if (favoritesProducts.includes(id)) {
+
+            const currentFavorites = [...favoritesProducts]
+            const noFavorite = currentFavorites.filter(currentId => id !== currentId)
+        
+            setFavoritesProducts(noFavorite)
+        } else {
+            setFavoritesProducts([...favoritesProducts, id])
+            
+        }
+        
+    }
+
     
-    const handleAdd = () => {
-        setTxtButton(txtButton => !txtButton);
-        console.log(txtButton);
-    }
-
-    const handleAddFav = () => {
-        setFavorites(favorites => !favorites);
-
-        console.log(favorites)
-    }
-
-    const printText = txtButton ? 'adicionar' : 'adicionado';
-    const styleFavoriteBtn = favorites ? 'active' : '';
 
 
     return(
         <div className="container">
             {ProductsShelf && ProductsShelf.length > 0 ? ProductsShelf.map((product) => {
-            
+                const isInCart = cartProducts.includes(product.id)
+                const isFavorite = favoritesProducts.includes(product.id)
+
+                
+
                 return(
                     <div className="shelfItem" key={product.id}>
-                        <button className={`btnFavorites ${styleFavoriteBtn}`} onClick={handleAddFav}></button>
+                        <button className={`btnFavorites ${isFavorite ? 'active' : ''}`} onClick={() => handleAddFav(product.id)}></button>
                         <img src={product.imageURL} className="shelfItem__image" alt="teste" />
                         <div className="shelfItem__boxProduct">
                             <p className="shelfItem__name">{product.productName}</p>
-                            <p className="shelfItem__oldPrice">{product.oldPrice}</p>
-                            <p className="shelfItem__currentPrice">{product.currentPrice}</p>
-                            <p className="shelfItem__priceMethods">em até 10x de R$ 259,90 sem juros</p>
+                            <p className="shelfItem__oldPrice">R$ {product.oldPrice}</p>
+                            <p className="shelfItem__currentPrice">R$ {product.currentPrice}</p>
+                            <p className="shelfItem__priceMethods">em até <b>10x de R$ 259,90</b> sem juros</p>
                         </div>
-                        <button className={`btn ${txtButton ? '' : 'active'}`} onClick={handleAdd}>{printText}</button>
+                        <button className={`btn ${isInCart ? 'active' : ''}`} onClick={() => handleAdd(product.id)}>{isInCart ? 'adicionado' : 'adicionar'}</button>
                     </div>
                 )
                 
