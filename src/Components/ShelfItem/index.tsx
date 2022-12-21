@@ -33,15 +33,13 @@ const ShelfItem = () => {
 
     const handleAddFav = () => {
         setFavorites(favorites => !favorites);
-        
+
         console.log(favorites)
     }
 
     const printText = txtButton ? 'adicionar' : 'adicionado';
     const styleFavoriteBtn = favorites ? 'active' : '';
 
-    const listFavorites = favoritesProducts
-    console.log(listFavorites);
 
     return(
         <div className="container">
