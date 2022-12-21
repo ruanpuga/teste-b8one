@@ -70,7 +70,7 @@ const ShelfItem = () => {
 
                 const priceMethods = product.currentPrice / 10;
 
-                console.log(product.currentPrice)
+                
 
                 return(
                     <div className="shelfItem" key={product.id}>
